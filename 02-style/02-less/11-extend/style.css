@@ -1,0 +1,11 @@
+.style {
+  background: #BF70A5;
+}
+.container,
+.style {
+  font-style: italic;
+}
+.img,
+.style {
+  font-size: 30px;
+}
