@@ -1,0 +1,13 @@
+// 它用于将mixins分组在通用名称下。 使用命名空间可以避免名称冲突，并从外部封装mixin组。
+.class1 {
+  .class2 {
+    .val(@param) {
+      font-size: @param;
+      color: green;
+    }
+  }
+}
+
+.myclass {
+  .class1 > .class2 > .val(20px);
+}
