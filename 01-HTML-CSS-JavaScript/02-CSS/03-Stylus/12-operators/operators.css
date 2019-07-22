@@ -1,0 +1,17 @@
+body {
+  foo: 15px;
+  foo: 256;
+  foo: 10px;
+  foo: false;
+  foo: baz;
+  foo: foo;
+  foo: 1 2 3 4 5;
+  foo: 1 2 3 4;
+  foo: true;
+  foo: true;
+  foo: false;
+  foo: true;
+  foo: false;
+  foo: one 1;
+  foo: 3in 1 2 3 4;
+}
