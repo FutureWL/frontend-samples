@@ -1,0 +1,12 @@
+#prompt {
+  position: absolute;
+  top: 150px;
+  left: 5px;
+  width: 200px;
+  margin-left: -100px;
+}
+#logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+}

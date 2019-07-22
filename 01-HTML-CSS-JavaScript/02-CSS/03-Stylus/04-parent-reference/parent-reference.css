@@ -1,0 +1,11 @@
+ul li a {
+  display: block;
+  color: #00f;
+  padding: 5px;
+}
+html.ie ul li a {
+  padding: 6px;
+}
+ul li a:hover {
+  color: #f00;
+}
