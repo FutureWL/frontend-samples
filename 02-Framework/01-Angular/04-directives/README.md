@@ -1,3 +1,3 @@
-attribute 属性绑定
+attribute 属性型指令
 
-structural 事件绑定
+structural 结构型指令
