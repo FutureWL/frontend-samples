@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {HelloService} from "./hello.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hello-world';
+
+
+  constructor(
+    private helloService: HelloService
+  ) {
+  }
+
+  hello() {
+    this.helloService.hello()
+      .subscribe(
+      res => {
+        console.log(res)
+      }
+    )
+  }
+
 }
