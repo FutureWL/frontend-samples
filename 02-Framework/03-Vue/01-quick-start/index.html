@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .class1 {
+            background: #444;
+            color: #eee;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
+    app-1
     {{message}}
+</div>
+<div id="vue_det">
+    <h1>site:{{site}}</h1>
+    <h1>url:{{url}}</h1>
+    <h1>{{details()}}</h1>
+</div>
+<div id="app-2">
+    app-2
+    <div v-html="message"></div>
+</div>
+<div id="app-3">
+    <label for="r1">修改颜色</label><input type="checkbox" v-model="use" id="r1">
+    <br><br>
+    <div v-bind:class="{'class1':use}"> v-bind:class 指令</div>
 </div>
 <script>
     let app = new Vue({
@@ -16,6 +37,33 @@
             message: 'Hello Vue!'
         }
     })
+
+    let app2 = new Vue({
+        el: '#vue_det',
+        data: {
+            site: "菜鸟教程",
+            url: "www.runoob.com",
+            alexa: "1000"
+        },
+        methods: {
+            details: function () {
+                return this.site + " - 学的不仅是技术，更是梦想！"
+            }
+        }
+    })
+
+    let app3 = new Vue({
+        el: '#app-2',
+        data: {
+            message: '<h1>菜鸟教程</h1>'
+        }
+    })
+
+    let app4 = new Vue({
+        el: '#app-3',
+        data: {use: false}
+    })
+
 </script>
 </body>
 </html>
