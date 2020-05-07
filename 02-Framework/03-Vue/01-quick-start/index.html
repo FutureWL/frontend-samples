@@ -3,67 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <style>
-        .class1 {
-            background: #444;
-            color: #eee;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+<!-- 声明式渲染 -->
+#app-1
 <div id="app">
-    app-1
     {{message}}
 </div>
-<div id="vue_det">
-    <h1>site:{{site}}</h1>
-    <h1>url:{{url}}</h1>
-    <h1>{{details()}}</h1>
-</div>
+#app-2
 <div id="app-2">
-    app-2
-    <div v-html="message"></div>
+    <span v-bind:title="message">
+        鼠标悬停几秒查看此处绑定的提示信息！
+    </span>
 </div>
+<!-- 条件与循环 -->
+#app-3
 <div id="app-3">
-    <label for="r1">修改颜色</label><input type="checkbox" v-model="use" id="r1">
-    <br><br>
-    <div v-bind:class="{'class1':use}"> v-bind:class 指令</div>
+    <p v-if="seen">现在你看到我了</p>
+</div>
+#app-4
+<div id="app-4">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+<!-- 处理用户输入 -->
+#app-5
+<div id="app-5">
+    <p>{{message}}</p>
+    <button v-on:click="reverseMessage">反转消息</button>
+</div>
+#app-6
+<div id="app-6">
+    <p>{{message}}</p>
+    <input v-model="message">
+</div>
+<!-- 组件化应用构建 -->
+#app-7
+<div id="app-7">
+    <ol>
+        <todo-item v-for="item in groceryList"
+                   v-bind:todo="item"
+                   v-bind:key="item.id">
+        </todo-item>
+    </ol>
 </div>
 <script>
+    // 声明式渲染
     let app = new Vue({
         el: '#app',
         data: {
             message: 'Hello Vue!'
         }
     })
-
     let app2 = new Vue({
-        el: '#vue_det',
+        el: '#app-2',
         data: {
-            site: "菜鸟教程",
-            url: "www.runoob.com",
-            alexa: "1000"
-        },
-        methods: {
-            details: function () {
-                return this.site + " - 学的不仅是技术，更是梦想！"
+            message: '页面加载于 ' + new Date().toLocaleString()
+        }
+    })
+    // 条件与循环
+    let app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen: true
+        }
+    })
+    let app4 = new Vue({
+        el: '#app-4',
+        data: {
+            todos: [
+                {text: '学习 JavaScript'},
+                {text: '学习 Vue'},
+                {text: '整个牛项目'}
+            ]
+        }
+    })
+    // 处理用户输入
+    let app5 = new Vue({
+        el: '#app-5', data: {message: 'Hello Vue.js!'}, methods: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('')
             }
         }
     })
-
-    let app3 = new Vue({
-        el: '#app-2',
+    let app6 = new Vue({
+        el: '#app-6',
         data: {
-            message: '<h1>菜鸟教程</h1>'
+            message: 'Hello Vue!'
         }
     })
-
-    let app4 = new Vue({
-        el: '#app-3',
-        data: {use: false}
+    // 组件化应用构建
+    Vue.component('todo-item', {props: ['todo'], template: '<li>{{todo.text}}</li>'})
+    let app7 = new Vue({
+        el: '#app-7',
+        data: {groceryList: [{id: 0, text: '蔬菜'}, {id: 1, text: '奶酪'}, {id: 2, text: '随便其它什么人吃的东西'}]}
     })
-
 </script>
 </body>
 </html>
