@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--
+    computed 计算属性
+    methods 普通方法
+    watch 侦听方法
+    -->
+</head>
+<body>
+<div id="app">
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    <p>Computed reversed message2: "{{ reversedMessage2() }}"</p>
+    <div>{{ fullName }}</div>
+    <div>
+        <p>a: {{a}}</p>
+        <p>a: <input type="text" v-model="a"></p>
+    </div>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello World!',
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar',
+            a: '2'
+        },
+        computed: {
+            reversedMessage: {
+                get: function () {
+                    return this.message.split('').reverse().join('')
+                },
+                // 计算属性也提供 设置方法
+                set: function () {
+
+                }
+            }
+        },
+        methods: {
+            reversedMessage2: function () {
+                return this.message.split('').reverse().join('')
+            }
+        },
+        watch: {
+            firstName: function (val) {
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val
+            },
+            a: function (newVal, oldVal) {
+                console.log("newVal:" + newVal + ",oldVal:" + oldVal)
+            }
+        }
+    })
+    console.log(app.reversedMessage)
+    app.message = 'Hello'
+    console.log(app.reversedMessage)
+    console.log(app.reversedMessage2())
+</script>
+</body>
+</html>

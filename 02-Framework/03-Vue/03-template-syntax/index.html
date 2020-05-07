@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!-- 插值 -->
+<div id="app">
+    <!-- 文本 -->
+    <div>
+        <span>Message: {{message}}</span>
+    </div>
+    <!-- 通过使用 v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上的其它数据绑定：-->
+    <div>
+        <span v-once>Message: {{message}}</span>
+    </div>
+    <div>
+        <button v-on:click="change">改变值</button>
+    </div>
+    <!-- 原始 HTML -->
+    <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令： -->
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <!-- Attribute -->
+    <!-- Mustache 语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令： -->
+    <div v-bind:id="dynamicId"></div>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+    <!-- 使用 JavaScript 表达式 -->
+    <!-- 迄今为止，在我们的模板中，我们一直都只绑定简单的 property 键值。但实际上，对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。 -->
+    <div>{{number + 2}}</div>
+    <div>{{ok?'OK':'NO'}}</div>
+    <div>{{message.split('').reverse().join('')}}</div>
+    <div v-bind:id="'list-'+id"></div>
+    <!-- 指令 -->
+    <a v-bind:href="url">百度一下</a>
+    <!-- 动态参数 -->
+    <a v-bind:[attributeName]="url">百度一下</a>
+    <!-- 修饰符 -->
+    <!-- 缩写 -->
+    <!-- 完整语法 -->
+    <a v-bind:href="url">...</a>
+    <!-- 缩写 -->
+    <a :href="url">...</a>
+    <!-- 完整语法 -->
+    <a v-on:click="doSomething">...</a>
+    <!-- 缩写 -->
+    <a @click="doSomething">...</a>
+    <!-- 动态参数的缩写 (2.6.0+) -->
+    <a @[event]="doSomething"> ... </a>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello',
+            rawHtml: '<span style="color: red">This should be red.</span>',
+            dynamicId: 1,
+            isButtonDisabled: 'true',
+            number: 2,
+            ok: false,
+            id: 3,
+            attributeName:"href",
+            url:'https://www.baidu.com',
+            event:"click"
+        },
+        methods: {
+            change: function () {
+                this.message = 'World!'
+            },
+            doSomething:function () {
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

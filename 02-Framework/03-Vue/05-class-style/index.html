@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--
+        v-bind
+    -->
+    <style>
+        .static {
+            background-color: #999999
+        }
+
+        .active {
+            color: #0000FF;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="static" v-bind:class="{ active: isActive}">
+        {{message}}
+    </div>
+    <button v-on:click="click">点击我</button>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            isActive: true
+        }, methods: {
+            click: function () {
+                this.isActive = false
+            }
+        }
+    })
+</script>
+</body>
+</html>

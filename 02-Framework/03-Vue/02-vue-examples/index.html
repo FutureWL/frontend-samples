@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--
+    生命周期
+    beforeCreate
+    created
+    beforeMount
+    mounted
+    beforeUpdate
+    updated
+    beforeDestroy
+    destroyed
+    -->
+</head>
+<body>
+<!-- Vue 实例 -->
+<div id="app">
+    {{message}}
+    <button v-on:click="update">点击我</button>
+    <button v-on:click="destroy">点击我2</button>
+</div>
+<script>
+    let data = {a: 1, message: 'Hello'}
+    // Vue 实例
+    let app = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+            update: function () {
+                this.message = 'World!'
+            },
+            destroy: function () {
+                this.$destroy()
+            }
+        },
+        // 实例生命周期钩子
+        beforeCreate: function () {
+            console.log('beforeCreate')
+        },
+        created: function () {
+            console.log('created')
+        },
+        mounted: function () {
+            console.log('mounted')
+        },
+        beforeMount: function () {
+            console.log('beforeMount')
+        },
+        beforeUpdate: function () {
+            console.log('beforeUpdate')
+        },
+        updated: function () {
+            console.log('updated')
+        },
+        beforeDestroy: function () {
+            console.log('beforeDestroy')
+        },
+        destroyed: function () {
+            console.log('destroyed')
+        }
+    })
+    console.log(app.a === data.a)
+</script>
+</body>
+</html>
