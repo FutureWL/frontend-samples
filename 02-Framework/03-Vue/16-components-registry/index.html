@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!-- 声明式渲染 -->
+<div id="app">
+    <easy-title></easy-title>
+    <easy-motto></easy-motto>
+    <easy-wish></easy-wish>
+</div>
+<script>
+    let EasyTitle = {
+        name: 'EasyTitle',
+        template: '<h1>大气当成</h1>'
+    }
+    let EasyMotto = {
+        name: 'EasyMotto',
+        template: '<p>过一方水土</p>'
+    }
+    let EasyWish = {
+        name: 'EasyWish',
+        template: '<p>aaaaa</p>'
+    }
+    let app = new Vue({
+        el: '#app',
+        components: {EasyTitle, EasyMotto, EasyWish}
+    })
+</script>
+</body>
+</html>

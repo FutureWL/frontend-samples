@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .fixed-width {
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<!-- DOM 渲染 -->
+<p id="app"><strong class="fixed-width">CSS 选择器</strong>{{msg}}</p>
+<p id="app2"><strong class="fixed-width">DOM 节点</strong>{{msg}}</p>
+<p id="app3"><strong class="fixed-width">手动挂载</strong>{{msg}}</p>
+<button onclick="handleMount()">手动挂载</button>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: 'Hello World'
+            }
+        }
+    })
+    let app2 = new Vue({
+        el: document.getElementById('app2'),
+        data() {
+            return {msg: 'Hello World'}
+        }
+    })
+    let app3 = new Vue({
+        data() {
+            return {msg: 'Hello World'}
+        }
+    })
+    let handleMount = function () {
+        app3.$mount('#app3')
+    }
+</script>
+</body>
+</html>

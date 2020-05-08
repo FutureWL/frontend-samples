@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .btn {
+            outline: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 12px;
+        }
+
+        .btn-text {
+            color: #409eff;
+            background-color: transparent;
+        }
+
+        .btn-text:hover {
+            color: #66b1ff;
+        }
+    </style>
+</head>
+<body>
+<!--
+ 视图的字符串模板
+-->
+<div id="app">
+    <fly-table :fields="fields" :goods="goods">
+        <span slot="title">Fly Table Component</span>
+    </fly-table>
+</div>
+<script>
+    Vue.component('fly-table', {
+        props: {
+            fields: {
+                type: Array, default() {
+                    return []
+                }
+            },
+            goods: {
+                type: Array, default() {
+                    return [];
+                }
+            }
+        },
+        methods: {
+            // 定义数组倒叙方法
+            reverse() {
+                this.goods.reverse()
+            }
+        },
+        render(createElement) {
+            return createElement('div', {
+                // 作为子组件时的插槽名称
+                slot: 'fly-table'
+            }, [createElement('h2', this.$slots.title),
+                createElement('button', {
+                    // class 用于绑定 类名，同 v-bind:class的绑定方式
+                    class: ['btn', 'btn-text'],
+                    // attrs 用于绑定节点一般属性，如 id、disabled、title等
+                    attrs: {disabled: false, title: '点击使数组倒序'},
+                    // domProps 用于绑定节点 DOM 属性，如 innerHTML、innerText 等
+                    domProps: {innerText: '倒序'},
+                    on: {
+                        // 绑定事件，使用箭头函数以免创建函数作用域
+                        click: () => {
+                            this.goods.reverse()
+                        }
+                    },
+                    // 自定义指令
+                    directives: [],
+                    // 其他属性
+                    key: 'btnReverse',
+                    ref: 'btnReverse'
+                }),
+                createElement('table', {
+                    // style 用于绑定样式 同 v-bind:style 的绑定方式
+                    style: {
+                        width: '400px',
+                        textAlign: 'left',
+                        lineHeight: '42px',
+                        border: '1px solid #eee',
+                        userSelect: 'none'
+                    }
+                }, [createElement('tr', [
+                    this.fields.map(field => createElement('th', field.prop))
+                ]), this.goods.map(item => createElement('tr', {style: {color: item.isMarked ? '#ea4335' : ''}},
+                    this.fields.map(field => createElement('td', {style: {borderTop: '1px solid #eee'}}, [
+                        // 如果不是操作列，显示文本
+                        field.prop !== 'operate'
+                            ? createElement('span', item[field.prop])
+                            : createElement('button', { // 否则显示按钮
+                                class: ['btn', 'btn-text'],
+                                domProps: {innerHTML: '<span>切换标记</span>'},
+                                on: {
+                                    // 当按钮被点击时，切换该行文本标记状态（被标记时字体显示红色）
+                                    click: () => {
+                                        item.isMarked = !item.isMarked
+                                    }
+                                }
+                            })
+                    ]))
+                ))])
+            ])
+        }
+    })
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                fields: [
+                    {label: '名称', prop: 'name'},
+                    {label: '数量', prop: 'quantity'},
+                    {label: '价格', prop: 'price'},
+                    {label: '', prop: 'operate'},
+                ],
+                goods: [
+                    {name: '苹果', quantity: 200, price: 6.8, isMarked: false},
+                    {name: '西瓜', quantity: 50, price: 4.8, isMarked: false},
+                    {name: '榴莲', quantity: 0, price: 22.8, isMarked: false},
+                ]
+            }
+        }
+    })
+</script>
+</body>
+</html>

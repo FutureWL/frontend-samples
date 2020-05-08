@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--
+ 过滤器
+-->
+<div id="app">
+    <h1>{{title}}</h1>
+    <h1>{{title | supplyTitle1}}</h1>
+    <h1>{{title | supplyTitle1 | supplyTitle2}}</h1>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                title: 'Test#%for#%Filter.'
+            }
+        },
+        filters: {
+            supplyTitle1(value) {
+                console.log('Supply Title 1')
+                return value.replace(/#/g, '')
+            },
+            supplyTitle2(value) {
+                console.log('Supply Title 2')
+                return value.replace(/%/g, '')
+            }
+        }
+    })
+</script>
+</body>
+</html>

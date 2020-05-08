@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--
+自定义指令
+钩子函数：
+- bind: 指令与元素绑定时调用
+- inserted: 指令绑定的元素被挂载到父元素上时调用
+- update: 指令所在的 VNode 更新时调用，可能发生在其子 VNode 更新之前
+- componentUpdated: 指令所在 VNode 全部更新后调用
+- unbind: 指令与元素解绑时调用
+-->
+<div id="app">
+    <h1 v-some.upper>{{title}}</h1>
+    <h1 v-some.lower>{{title}}</h1>
+    <h1 v-style="style">{{title}}</h1>
+    <button @click="handleStyle">修改v-style</button>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                title: 'Test for Directive.',
+                style: {
+                    fontStyle: 'italic'
+                }
+            }
+        },
+        methods: {
+            handleStyle() {
+                this.$set(this.style, 'color', '#ababab')
+                this.$set(this.style, 'transform', 'rotateX(45deg)')
+            }
+        },
+        directives: {
+            style: {
+                bind(el, binding, vnode) {
+                    console.log('%c --------- bind 参数：el,binding,vnode ---------', 'font-size:18px')
+                    console.log('%o\n\n%o\n\n%o', el, binding, vnode)
+                    let styles = binding.value
+                    Object.keys(styles).forEach(key => el.style[key] = styles[key])
+                },
+                update(el, binding, vnode, oldVnode) {
+                    console.log('%c --------- update 参数：el,binding,vnode,oldVnode ---------', 'font-size:18px')
+                    console.log('%o\n\n%o\n\n%o', el, binding, vnode, oldVnode)
+                    let styles = binding.value
+                    Object.keys(styles).forEach(key => el.style[key] = styles[key])
+                }
+            },
+            some(el, binding) {
+                let text = el.innerText
+                let modifiers = binding.modifiers
+                if (modifiers.upper) {
+                    el.innerText = text.toUpperCase()
+                }
+                if (modifiers.lower) {
+                    el.innerText = text.toLowerCase()
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
