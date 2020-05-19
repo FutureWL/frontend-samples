@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function f1() {
+
+            axios.get("http://localhost:8080/api/users/1").then(function (response) {
+                console.log(response)
+                console.log(response.data)
+            }).catch(function (error) {
+                console.log(error)
+            })
+            axios.get("http://localhost:8080/users", {
+                params: {name: 'axios'}
+            }).then(function (response) {
+                console.log(response)
+                console.log(response.data)
+            }).catch(function (error) {
+                console.log(error)
+            })
+            axios.post("http://localhost:8080/api/users", {name: 'axios'}).then(function (response) {
+                console.log(response)
+                console.log(response.data)
+            }).catch(function (error) {
+                console.log(error)
+            })
+        }
+
+        function f2() {
+
+
+            function getUserInfo(userId) {
+                return axios.get("http://localhost:8080/api/users/" + userId)
+            }
+
+            axios.all([
+                getUserInfo(1),
+                getUserInfo(2),
+                getUserInfo(3)
+            ]).then(axios.spread(function (
+                user1,
+                user2,
+                user3
+            ) {
+                console.log(user1)
+                console.log(user1.data)
+                console.log(user2)
+                console.log(user2.data)
+                console.log(user3)
+                console.log(user3.data)
+            }))
+        }
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/api/users',
+            data: {
+                name: "axios9"
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
